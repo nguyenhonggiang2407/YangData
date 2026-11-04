@@ -1,20 +1,22 @@
 # YangData · Small data, clear answers
 
-[![YangData checks](https://github.com/nguyenhonggiang2407/DTDD/actions/workflows/ci.yml/badge.svg?branch=yangdata)](https://github.com/nguyenhonggiang2407/DTDD/actions?query=branch%3Ayangdata)
+[![YangData checks](https://github.com/nguyenhonggiang2407/YangData/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/nguyenhonggiang2407/YangData/actions/workflows/ci.yml)
 
 **Nhập CSV → đặt điều kiện → xem SQL thật → lưu báo cáo → xuất kết quả.**
 
 Ứng dụng thực hành Backend / Full-stack của **Nguyễn Hồng Giang (Yang)**. Node.js 24, SQLite và JavaScript thuần; không cần API key hay dịch vụ mô hình.
 
-> Nhánh **yangdata** chứa một ứng dụng độc lập. Nhánh mặc định của DTDD là YangCareer; chọn đúng nhánh khi tải hoặc xem mã. Ứng dụng chưa được triển khai thành website công khai.
+Repository độc lập này được tách từ nhánh **yangdata** của DTDD, giữ nguyên lịch sử
+commit và thông báo nguồn. [Hồ sơ chuyển repository](docs/repository-migration.md)
+ghi source commit, kiểm tra và giới hạn của đợt chuyển. Ứng dụng chưa có website công khai.
 
 ![YangData desktop](docs/screenshots/desktop.png)
 
 ## Chạy thử
 
 ```sh
-git clone --branch yangdata --single-branch https://github.com/nguyenhonggiang2407/DTDD.git yangdata
-cd yangdata
+git clone https://github.com/nguyenhonggiang2407/YangData.git
+cd YangData
 npm ci
 npm start
 ```
