@@ -15,6 +15,7 @@ const FILES = new Map([
   ['/assets/styles.css', ['styles.css', 'text/css']],
   ['/assets/app.js', ['app.js', 'text/javascript']],
   ['/assets/favicon.svg', ['favicon.svg', 'image/svg+xml']],
+  ['/assets/sample-orders.csv', ['sample-orders.csv', 'text/csv']],
 ]);
 function send(res, body, status = 200) {
   res.writeHead(status, { 'Content-Type': 'application/json; charset=utf-8' });
@@ -64,7 +65,7 @@ function readJSON(req) {
 
 export const SAMPLE = {
   name: 'Đơn hàng cửa hàng mẫu',
-  csv: 'Mã đơn,Khu vực,Nhóm hàng,Doanh thu,Số lượng,Trạng thái\n001,Hà Nội,Văn phòng,245000,5,Hoàn thành\n002,Đà Nẵng,Đồ dùng,180000,2,Hoàn thành\n003,Hồ Chí Minh,Văn phòng,420000,7,Đang xử lý\n004,Hà Nội,Đồ dùng,320000,4,Hoàn thành\n005,Đà Nẵng,Văn phòng,155000,3,Hoàn thành\n006,Hồ Chí Minh,Đồ dùng,280000,2,Đã hủy\n007,Hà Nội,Văn phòng,360000,6,Hoàn thành\n008,Đà Nẵng,Đồ dùng,210000,3,Đang xử lý\n009,Hồ Chí Minh,Văn phòng,540000,9,Hoàn thành\n010,Hà Nội,Đồ dùng,165000,1,Hoàn thành\n011,Đà Nẵng,Văn phòng,295000,5,Hoàn thành\n012,Hồ Chí Minh,Đồ dùng,450000,6,Hoàn thành\n',
+  csv: readFileSync(join(ROOT, 'public', 'sample-orders.csv'), 'utf8'),
 };
 function attachment(res, content, filename) {
   res.writeHead(200, {

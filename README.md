@@ -23,6 +23,8 @@ npm start
 
 Mở **http://127.0.0.1:3130**. Chọn **Thử dữ liệu mẫu** để nhập 12 đơn hàng giả lập. Thử lọc Trạng thái = Hoàn thành, SUM Doanh thu, nhóm theo Khu vực và sắp xếp giảm dần. Kết quả là Hà Nội 1.090.000, Hồ Chí Minh 990.000 và Đà Nẵng 630.000.
 
+Để thử toàn bộ luồng nhập tệp, mở **Nhập CSV** rồi chọn **Tải CSV mẫu giả lập**. Tải [cùng tệp mẫu](public/sample-orders.csv) lên, xem trước 12 dòng và kiểm tra cột **Mã đơn** ở kiểu văn bản để giữ số `0` đầu mã. Lưu tập dữ liệu khi xem trước thành công.
+
 Hoặc dùng container:
 
 ```sh
