@@ -2,7 +2,7 @@ import { test, before, after } from 'node:test';
 import assert from 'node:assert/strict';
 import { mkdirSync, readFileSync } from 'node:fs';
 import { chromium, expect } from '@playwright/test';
-import { createApp } from '../server.mjs';
+import { createApp, SAMPLE } from '../server.mjs';
 let app, browser, base;
 before(async () => {
   mkdirSync('docs/screenshots', { recursive: true });
@@ -102,6 +102,31 @@ test('filter → grouped SQL → saved report → reopen → edit → CSV export
   await page.locator('[data-view="reports"]').click();
   await expect(page.locator('.report-card h2')).toHaveText('Đơn đang xử lý theo vùng');
   await capture(page, 'reports');
+});
+test('the downloadable demo CSV previews and imports without a duplicate sample dataset', async (t) => {
+  const { page } = await workspace(t);
+  await page.getByRole('button', { name: '＋ Nhập CSV', exact: true }).click();
+  const downloading = page.waitForEvent('download');
+  await page.getByRole('link', { name: 'Tải CSV mẫu giả lập' }).click();
+  const downloaded = await downloading;
+  assert.equal(downloaded.suggestedFilename(), 'sample-orders.csv');
+  const buffer = readFileSync(await downloaded.path());
+  assert.equal(buffer.toString('utf8'), SAMPLE.csv);
+
+  await page.locator('#csvFile').setInputFiles({
+    name: downloaded.suggestedFilename(),
+    mimeType: 'text/csv',
+    buffer,
+  });
+  await expect(page.locator('#previewMeta')).toHaveText('12 dòng · 6 cột');
+  await expect(page.getByLabel('Kiểu cột Mã đơn', { exact: true })).toHaveValue('text');
+  await expect(page.locator('#previewTable tbody tr').first()).toContainText('001');
+  await page.locator('#importSubmit').click();
+  await expect(page.locator('#importDialog')).not.toBeVisible();
+  await expect(page.locator('#resultMeta')).toContainText('12 dòng');
+  await page.locator('#demoBtn').click();
+  await expect(page.locator('#toast')).toHaveText('Đã mở lại bộ đơn hàng mẫu.');
+  await expect(page.locator('#statDatasets')).toHaveText('1');
 });
 test('CSV type correction, literal HTML, formula-safe export and duplicate reuse', async (t) => {
   const { page } = await workspace(t);
